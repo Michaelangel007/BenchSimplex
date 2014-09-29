@@ -7,12 +7,14 @@
  * This file is intended to test the function of OpenSimplexNoise.hh.
  *
  * Compile with:
- *   g++ -o OpenSimplexNoiseTest -O2 OpenSimplexNoiseTest.cc
+ *   g++ -o BenchmarkSimplex -O2 OpenSimplexNoiseTest.cc
  *
- * Additional optimization can be obtained with -Ofast (at the cost of accuracy)
- * and -msse4 (or the highest level of SSE your CPU supports).
+ * Additional optimization can be obtained with:
+ * 
+ *    GCC: -Ofast (at the cost of accuracy)
+ *         -msse4 (or the highest level of SSE your CPU supports).
  *
- * On MSVC: /fp:fast /arch:SSE2
+ *    MSVC: /fp:fast /arch:SSE2
  */
 #define SIMPLEX_SHADER 1
 
@@ -57,7 +59,6 @@ void make_open( OpenSimplexNoise & simplex, float *values )
             values[ xi+yi*WIDTH ] = simplex.eval( x, y, 0.0f );
         }
     }
-
 }
 
 void make_ref( SimplexNoise1234 & simplex, float *values )
