@@ -33,7 +33,7 @@ Details:
   https://gist.github.com/KdotJPG/b1270127455a94ac5d19
   http://uniblock.tumblr.com/post/97868843242/noise
 
-  Arthur Tombs for porting KdotJPG's OpenSimplexNoise to C++
+  Arthur Tombs ported KdotJPG's OpenSimplexNoise to C++
   https://gist.github.com/tombsar/716134ec71d1b8c1b530
 
 3) Brian Sharpe's SimplexPerlin3D
@@ -58,7 +58,8 @@ References:
 - http://briansharpe.wordpress.com/2012/01/13/simplex-noise/
 - http://cmaher.github.io/posts/working-with-simplex-noise/
 - http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
-
+- http://uniblock.tumblr.com/post/97868843242/noise
+- http://www.reddit.com/r/proceduralgeneration/comments/2gu3e7/like_perlins_simplex_noise_but_dont_like_the/
 
 Special Thanks:
 
