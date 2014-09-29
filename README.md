@@ -1,9 +1,9 @@
 Benchmarks for various Simplex noise implementations on the CPU:
 
-1) Stefan Gustavson's Simplex "reference" implementation
-2) Arthur Tombs C++ version of Kurt Spencer OpenSimplexNoise
-3) BrianSharpe's GLSL SimplexPerlin3D but on the CPU
-4) not yet implemented -- Ashima Arts's WebGL snoise
+1. Stefan Gustavson's Simplex "reference" implementation
+2. Arthur Tombs C++ version of Kurt Spencer OpenSimplexNoise
+3. BrianSharpe's GLSL SimplexPerlin3D but on the CPU
+4. not yet implemented -- Ashima Arts's WebGL snoise
 
 
 Details:
