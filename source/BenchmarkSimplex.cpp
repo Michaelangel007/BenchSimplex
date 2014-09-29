@@ -146,8 +146,8 @@ void BenchmarkOpenSimplex( bool bSaveNoise, float *values, uint8_t *texels )
         timer.Throughput( samples );
 
     // Throughput = Total samples / Time
-    printf( "Open Simplex Samples: %d,  %.f seconds = %d:%d, %d %cnoise/s\n"
-        , (uint32_t)samples
+    printf( "Open Simplex: %.f seconds = %d:%d, %2d %cnoise/s\n"
+//       , (uint32_t)samples
         , timer.elapsed
         , timer.mins
         , timer.secs
@@ -195,7 +195,8 @@ void BenchmarkReferenceSimplex( bool bSaveNoise, float *values, uint8_t *texels 
     timer.Throughput( samples );
 
     // Throughput = Total samples / Time
-    printf( "Ref. Simplex: %d,  %.f seconds = %d:%d, %d %cnoise/s\n"
+    printf( "Ref. Simplex: %.f seconds = %d:%d, %2d %cnoise/s\n"
+//        , (uint32_t)samples
         , timer.elapsed
         , timer.mins
         , timer.secs
@@ -233,8 +234,8 @@ void BenchmarkShaderSimplex(  bool bSaveNoise, float *values, uint8_t *texels )
     timer.Throughput( samples );
 
     // Throughput = Total samples / Time
-    printf( "GLSL Simplex Samples: %d,  %.f seconds = %d:%d, %d %cnoise/s\n"
-        , (uint32_t)samples
+    printf( "GLSL Simplex: %.f seconds = %d:%d, %2d %cnoise/s\n"
+//        , (uint32_t)samples
         , timer.elapsed
         , timer.mins
         , timer.secs
@@ -247,20 +248,20 @@ void BenchmarkShaderSimplex(  bool bSaveNoise, float *values, uint8_t *texels )
 /*
 Microsoft VS 2010
 Properties, Code Generation, 
-    Enable Enhanced Instruction Set: /arch:sse2
     Floating Point Model: /fp:fast
+    Enable Enhanced Instruction Set: /arch:sse2
 
 Samples: 67108864
 
-                                       w/ sse2      w/o sse2   w/o fp:fast
-Open Simplex: 4 seconds = 0:4, 16 Mnoise/s             6 Mnoise/s
-Ref. Simplex: 3 seconds = 0:3, 21 Mnoise/s            10 Mnoise/s
-GLSL Simplex: 8 seconds = 0:8,  8 Mnoise/s             4 Mnoise/s
+Mnoise/s      w/ sse2   fp:fast    w/o sse2   w/o fp:fast
+Open Simplex: 12         9                     6
+Ref. Simplex: 21        16                    10
+GLSL Simplex:  8         5                     4
 */
 int main( int nArg, char *aArg[] )
 {
 
-    float   *values = new float [WIDTH * HEIGHT];
+    float   *values = new float   [WIDTH * HEIGHT      ]; // intensity
     uint8_t *texels = new uint8_t [ WIDTH * HEIGHT * 3 ]; // rgb
 
     // Open Simplex Seed specified
@@ -282,9 +283,18 @@ bBenchmark = 1;
 #if SIMPLEX_SHADER
         BenchmarkShaderSimplex   ( bSaveNoise, values, texels );
 #endif
+
+        // Repeat the benchmark but in reverse
+#if SIMPLEX_SHADER
+        BenchmarkShaderSimplex   ( bSaveNoise, values, texels );
+#endif
+        BenchmarkReferenceSimplex( bSaveNoise, values, texels );
+        BenchmarkOpenSimplex     ( bSaveNoise, values, texels );
     }
 
-getchar();
+#if _WIN32
+    getchar();
+#endif
 
     delete [] texels;
     delete [] values;
