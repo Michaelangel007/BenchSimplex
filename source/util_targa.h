@@ -28,16 +28,20 @@ bool Targa_Save( const char *filename, const uint16_t width, const uint16_t heig
             //[ 7] // colormap bits per pixel
             //[ 8] // x-origin 16-bit
             //[10] // y-origin 16-bit
-            header[12] = width & 255;
-            header[13] =(width >> 8) & 0xFF;
-            header[14] = height & 255;
+            header[12] =(width      ) & 0xFF;
+            header[13] =(width  >> 8) & 0xFF;
+            header[14] =(height     ) & 0xFF;
             header[15] =(height >> 8) & 0xFF;
             header[16] = bitsPerPixel;
+            // T R Top/Right
+            //+-+-+
+            //|5|4| bits = direction to copy to screen
+            //+-+-+ 
             // 0 0 bottom left
             // 0 1 bottom right
             // 1 0 top left
             // 1 1 top right
-            header[17] = 0x20; // bits 5 & 4 = direction for copy to screen
+            header[17] = 0x20;
 
             if( fwrite( header, TGA_HEADER_SIZE, 1, pFile) )
                 if( fwrite( texels, (width * height * bitsPerPixel) >> 3, 1, pFile) )
