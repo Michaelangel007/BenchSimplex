@@ -7,7 +7,7 @@
  * This file is intended to test the function of OpenSimplexNoise.hh.
  *
  * Compile with:
- *   g++ -o BenchmarkSimplex -O2 OpenSimplexNoiseTest.cc
+ *   g++ -o BenchmarkSimplex -O2 OpenSimplexNoiseTest.cpp
  *
  * Additional optimization can be obtained with:
  * 
@@ -16,7 +16,9 @@
  *
  *    MSVC: /fp:fast /arch:SSE2
  */
+#ifndef SIMPLEX_SHADER
 #define SIMPLEX_SHADER 1
+#endif
 
 #ifdef _MSC_VER // Shutup Microsoft Visual C++ warnings about fopen()
     #define _CRT_SECURE_NO_WARNINGS
