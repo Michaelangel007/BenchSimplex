@@ -68,11 +68,13 @@ public:
     uint32_t secs;
     DataRate throughput;
 
-    void Start() {
+    void Start()
+    {
         gettimeofday( &start, NULL );
     }
 
-    void Stop() {
+    void Stop()
+    {
         gettimeofday( &end, NULL );
         elapsed = (end.tv_sec - start.tv_sec);
 
@@ -85,14 +87,18 @@ public:
     {
         const int MAX_PREFIX = 4;
         DataRate datarate[ MAX_PREFIX ] = {
-            {' '}, {'K'}, {'M'}, {'G'} // 1; 1,000; 1,000,000; 1,000,000,000
+            {' ',0,0}, {'K',0,0}, {'M',0,0}, {'G',0,0} // 1; 1,000; 1,000,000; 1,000,000,000
         };
 
+        if( !elapsed )
+            return;
+
         int best = 0;
-        for( int units = 0; units < MAX_PREFIX; units++ ) {
-            datarate[ units ].samples  = size >> (10*units);
-            datarate[ units ].per_sec = (uint64_t) (datarate[units].samples / elapsed);
-            if (datarate[units].per_sec > 0)
+        for( int units = 0; units < MAX_PREFIX; units++ )
+        {
+                datarate[ units ].samples = size >> (10*units);
+                datarate[ units ].per_sec = (uint64_t) (datarate[units].samples / elapsed);
+            if (datarate[ units ].per_sec > 0)
                 best = units;
         }
         throughput = datarate[ best ];
